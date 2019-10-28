@@ -31,24 +31,34 @@ class App extends Component {
   }
 
   render() {
+    
+    const styling = {
+      backgroundColor: 'white',
+      font: 'inherit',
+      border: '1px solid blue',
+      padding: '8px'
+    };
+
     return (
       <div className="App">
         <h1>This is the i don't know which time of my tries.</h1>
 
-        <Person 
-        name = {this.state.persons[0].name} 
-        age = {this.state.persons[0].age} 
-        click = {this.switchNameHandler.bind(this, 'James!!!')}
+        <Person
+          name={this.state.persons[0].name}
+          age={this.state.persons[0].age}
+          click={this.switchNameHandler.bind(this, 'James!!!')}
         >My hobbies: Movie</Person>
 
-        <Person 
-        name = {this.state.persons[1].name} 
-        age = {this.state.persons[1].age} 
-        click = {() => {this.switchNameHandler('Jess!')}}
-        input = { this.inputNameHandler }
+        <Person
+          name={this.state.persons[1].name}
+          age={this.state.persons[1].age}
+          click={() => { this.switchNameHandler('Jess!') }}
+          input={this.inputNameHandler}
         >My hobbies: Movie</Person>
 
-        <button onClick={() => {this.switchNameHandler('James!')}}>Switch name</button>
+        <button
+          style={styling}
+          onClick={() => { this.switchNameHandler('James!') }}>Switch name</button>
       </div>
     );
     // the code above will be converted to the code below
