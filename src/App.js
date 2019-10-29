@@ -6,10 +6,11 @@ import Person from '../src/Person/Person.js';
 class App extends Component {
   state = {
     persons: [
-      { name: 'James', age: 25 },
-      { name: 'Jess', age: 25 }
+      { id: 'p1', name: 'James', age: 25 },
+      { id: 'p2', name: 'Jess', age: 25 }
     ],
-    otherState: 'something else'
+    otherState: 'something else',
+    showPersons: false
   }
 
   switchNameHandler = (newName) => {
@@ -21,44 +22,74 @@ class App extends Component {
     })
   };
 
-  inputNameHandler = (event) => {
+  deletePersonHandler = (pi) => {
+    const persons = [...this.state.persons];
+    persons.splice(pi, 1);
+    this.setState({ persons: persons });
+  };
+
+  inputNameHandler = (event, id) => {
+    const pi = this.state.persons.findIndex(p => p.id === id);
+    const person = { ...this.state.persons[pi] };
+    person.name = event.target.value;
+    const persons = [...this.state.persons];
+    persons[pi] = person;
     this.setState({
-      persons: [
-        { name: 'James', age: 25 },
-        { name: event.target.value, age: 24 }
-      ]
+      persons: persons
     })
+  };
+
+  togglePersonsNamesHandler = () => {
+    this.setState({ showPersons: !this.state.showPersons });
   }
 
+  // react will excute render func when it decide to update views
   render() {
-    
+
     const styling = {
       backgroundColor: 'white',
       font: 'inherit',
       border: '1px solid blue',
-      padding: '8px'
+      padding: '8px',
+      margin: 'auto 5px'
     };
+
+    let persons = null;
+    // condition check
+    if (this.state.showPersons) {
+      persons =
+        <div>
+          {this.state.persons.map((person, index) => {
+            return (
+              <Person
+                name={person.name}
+                age={person.age}
+                click={this.switchNameHandler.bind(this, 'James!!!')}
+                delete={() => { this.deletePersonHandler(index) }}
+                key={person.id}
+                input={(e) => { this.inputNameHandler(e, person.id) }}
+              >My hobbies: Movie</Person>
+            )
+          })}
+        </div>
+    }
 
     return (
       <div className="App">
         <h1>This is the i don't know which time of my tries.</h1>
 
-        <Person
-          name={this.state.persons[0].name}
-          age={this.state.persons[0].age}
-          click={this.switchNameHandler.bind(this, 'James!!!')}
-        >My hobbies: Movie</Person>
+        <button
+          style={styling}
+          onClick={this.togglePersonsNamesHandler}
+        >{`${this.state.showPersons ? 'Hide' : 'Show'}`} name</button>
 
-        <Person
-          name={this.state.persons[1].name}
-          age={this.state.persons[1].age}
-          click={() => { this.switchNameHandler('Jess!') }}
-          input={this.inputNameHandler}
-        >My hobbies: Movie</Person>
+        {persons}
 
         <button
           style={styling}
-          onClick={() => { this.switchNameHandler('James!') }}>Switch name</button>
+          onClick={() => { this.switchNameHandler('James!') }}
+        >Switch name</button>
+
       </div>
     );
     // the code above will be converted to the code below

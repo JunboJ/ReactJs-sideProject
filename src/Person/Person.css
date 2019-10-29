@@ -5,3 +5,20 @@
     border-radius: 0.5rem;
     padding-bottom: 1rem;
 }
+
+.deletePerson_btn {
+    margin: 2px 2px;
+    color: none;
+    background-color: white;
+    border: none;
+    font-size: 1rem;
+}
+
+.deletePerson_btn:hover {
+    cursor: pointer;
+}
+
+.personBtnSet {
+    display: flex;
+    justify-content: flex-end;
+}
