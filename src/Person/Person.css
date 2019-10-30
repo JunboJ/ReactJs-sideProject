@@ -6,6 +6,18 @@
     padding-bottom: 1rem;
 }
 
+.full {
+    color: royalblue;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.available {
+    color: rgb(117, 207, 57);
+}
+
 .deletePerson_btn {
     margin: 2px 2px;
     color: none;

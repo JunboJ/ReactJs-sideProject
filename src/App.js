@@ -47,7 +47,8 @@ class App extends Component {
   render() {
 
     const styling = {
-      backgroundColor: 'white',
+      backgroundColor: 'green',
+      color: 'white',
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
@@ -57,6 +58,7 @@ class App extends Component {
     let persons = null;
     // condition check
     if (this.state.showPersons) {
+      styling.backgroundColor = 'red';
       persons =
         <div>
           {this.state.persons.map((person, index) => {
@@ -74,9 +76,17 @@ class App extends Component {
         </div>
     }
 
+    const classes = [];
+    if (this.state.persons.length === 2) {
+      classes.push('full', 'bold');
+    }
+    if (this.state.persons.length < 2) {
+      classes.push('available');
+    }
+
     return (
       <div className="App">
-        <h1>This is the i don't know which time of my tries.</h1>
+        <p className={classes.join(' ')}>This is the i don't know which time of my tries.</p>
 
         <button
           style={styling}
@@ -93,7 +103,7 @@ class App extends Component {
       </div>
     );
     // the code above will be converted to the code below
-    // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'This is a react app'));
+    // return React.createElement('div', {className: 'App'}, React.createElement('p', null, 'This is a react app'));
   }
 }
 
@@ -134,14 +144,14 @@ export default App;
 
 //   return (
 //     <div className="App">
-//       <h1>This is the i don't know which time of my tries.</h1>
+//       <p>This is the i don't know which time of my tries.</p>
 //       <Person name={personState.persons[0].name} age={personState.persons[0].age} >My hobbies: Coding</Person>
 //       <Person name={personState.persons[1].name} age={personState.persons[1].age} >My hobbies: Movie</Person>
 //       <button onClick={switchNameHandler}>Switch name</button>
 //     </div>
 //   );
 //   // the code above will be converted to the code below
-//   // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'This is a react app'));
+//   // return React.createElement('div', {className: 'App'}, React.createElement('p', null, 'This is a react app'));
 // }
 
 // export default App;
