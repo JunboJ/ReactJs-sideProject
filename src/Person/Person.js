@@ -1,9 +1,15 @@
 import React from 'react';
+import Radium from 'radium';
 import './Person.css';
 
 const person = props => {
+    const styling = {
+        '@media (min-width: 500px)': {
+            width: '450px'
+        }
+    }
     return (
-        <div className="Person">
+        <div className="Person" style={styling}>
             <div className="personBtnSet">
                 <button className="deletePerson_btn" onClick={props.delete}>&times;</button>
             </div>
@@ -14,4 +20,4 @@ const person = props => {
     )
 };
 
-export default person;
+export default Radium(person);
