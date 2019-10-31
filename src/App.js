@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import React, { useState } from 'react';
-import Radium, { StyleRoot } from 'radium';
-import './App.css';
+// import Radium, { StyleRoot } from 'radium';
+import style from './App.module.css';
 import Person from '../src/Person/Person.js';
 
 class App extends Component {
@@ -46,27 +46,12 @@ class App extends Component {
 
   // react will excute render func when it decide to update views
   render() {
-
-    const styling = {
-      backgroundColor: 'green',
-      color: 'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      margin: 'auto 5px',
-      ':hover': {
-        backgroundColor: 'lightgreen',
-        border: '2px solid lightblue'
-      }
-    };
-
+    let buttonStyle = style.Green;
     let persons = null;
     // condition check
     if (this.state.showPersons) {
-      styling.backgroundColor = 'red';
-      styling[':hover'] = {
-        backgroundColor: 'grey'
-      }
+      buttonStyle = style.Red;
+
       persons =
         <div>
           {this.state.persons.map((person, index) => {
@@ -86,37 +71,37 @@ class App extends Component {
 
     const classes = [];
     if (this.state.persons.length === 2) {
-      classes.push('full', 'bold');
+      classes.push(style.bold, style.full);
     }
     if (this.state.persons.length < 2) {
-      classes.push('available');
+      classes.push(style.available);
     }
 
     return (
-      <StyleRoot>
-        <div className="App">
-          <p className={classes.join(' ')}>This is  the i don't know which time of my tries.</p>
+      // <StyleRoot>
+      <div className={`flex-container ${style.App}`}>
+        <p className={classes.join(' ')}>This is  the i don't know which time of my tries.</p>
+        <div className={style.break}></div>
+        <button
+          className={`${style.personCtrl} ${buttonStyle}`}
+          onClick={this.togglePersonsNamesHandler}
+        >{`${this.state.showPersons ? 'Hide' : 'Show'}`} name</button>
+        <div className={style.break}></div>
+        {persons}
+        <div className={style.break}></div>
+        <button
+          onClick={() => { this.switchNameHandler('James!') }}
+        >Switch name</button>
 
-          <button
-            style={styling}
-            onClick={this.togglePersonsNamesHandler}
-          >{`${this.state.showPersons ? 'Hide' : 'Show'}`} name</button>
-
-          {persons}
-
-          <button
-            onClick={() => { this.switchNameHandler('James!') }}
-          >Switch name</button>
-
-        </div>
-      </StyleRoot>
+      </div>
+      // </StyleRoot>
     );
     // the code above will be converted to the code below
     // return React.createElement('div', {className: 'App'}, React.createElement('p', null, 'This is a react app'));
   }
 }
 
-export default Radium(App);
+export default App;
 
 
 

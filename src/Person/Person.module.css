@@ -1,21 +1,15 @@
 .Person {
-    width: 60%;
+    width: 90%;
     margin: 1rem auto;
     border: 1px solid gray;
     border-radius: 0.5rem;
-    padding-bottom: 1rem;
+    padding: 1rem;
 }
 
-.full {
-    color: royalblue;
-}
-
-.bold {
-    font-weight: bold;
-}
-
-.available {
-    color: rgb(117, 207, 57);
+@media only screen and (min-width: 500px) {
+    .Person {
+        width: 500px
+    }
 }
 
 .deletePerson_btn {
