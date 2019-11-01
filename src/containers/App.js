@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-// import React, { useState } from 'react';
 // import Radium, { StyleRoot } from 'radium';
 import style from './App.module.css';
-import Person from '../src/Person/Person';
-import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
+import Persons from '../components/Persons/Persons';
+import CockPit from '../components/Cockpit/Cockpit';
+// import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
 
 class App extends Component {
   state = {
@@ -47,54 +47,29 @@ class App extends Component {
 
   // react will excute render func when it decide to update views
   render() {
-    let buttonStyle = style.Green;
+    
     let persons = null;
     // condition check
     if (this.state.showPersons) {
-      buttonStyle = style.Red;
-
       persons =
-        <div>
-          {this.state.persons.map((person, index) => {
-            return (
-              // key prop must be inside of the outter element which works with map()
-              <ErrorBoundary key={person.id}>
-                <Person
-                  name={person.name}
-                  age={person.age}
-                  click={this.switchNameHandler.bind(this, 'James!!!')}
-                  delete={() => { this.deletePersonHandler(index) }}
-                  input={(e) => { this.inputNameHandler(e, person.id) }}
-                >My hobbies: Movie</Person>
-              </ErrorBoundary>
-            )
-          })}
-        </div>
-    }
-
-    const classes = [];
-    if (this.state.persons.length === 2) {
-      classes.push(style.bold, style.full);
-    }
-    if (this.state.persons.length < 2) {
-      classes.push(style.available);
+          <Persons
+            persons={this.state.persons}
+            clicked={this.switchNameHandler}
+            inputing={this.inputNameHandler}
+            deleting={this.deletePersonHandler}
+          />
     }
 
     return (
       // <StyleRoot>
       <div className={`flex-container ${style.App}`}>
-        <p className={classes.join(' ')}>This is  the i don't know which time of my tries.</p>
-        <div className={style.break}></div>
-        <button
-          className={`${style.personCtrl} ${buttonStyle}`}
-          onClick={this.togglePersonsNamesHandler}
-        >{`${this.state.showPersons ? 'Hide' : 'Show'}`} name</button>
-        <div className={style.break}></div>
+        <CockPit
+          persons={this.state.persons}
+          clicked={this.togglePersonsNamesHandler}
+          showPersons={this.state.showPersons}
+          switching={this.switchNameHandler}
+        />
         {persons}
-        <div className={style.break}></div>
-        <button
-          onClick={() => { this.switchNameHandler('James!') }}
-        >Switch name</button>
 
       </div>
       // </StyleRoot>

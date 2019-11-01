@@ -1,0 +1,36 @@
+button.Green {
+    background-color: green;
+    color: white;
+  }
+  
+  button.Green:hover {
+    background-color: darkgreen;
+    color: white;
+  }
+  
+  button.Red {
+    background-color: red;
+    color: white;
+  }
+  
+  button.Red:hover {
+    background-color: darkred;
+    color: white;
+  }
+  
+  .break {
+    flex: 0 1 100%;
+    height: 0;
+  }
+  
+  .full {
+    color: royalblue;
+  }
+  
+  .bold {
+    font-weight: bold;
+  }
+  
+  .available {
+    color: rgb(117, 207, 57);
+  }
