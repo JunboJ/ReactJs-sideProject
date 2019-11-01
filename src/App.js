@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 // import React, { useState } from 'react';
 // import Radium, { StyleRoot } from 'radium';
 import style from './App.module.css';
-import Person from '../src/Person/Person.js';
+import Person from '../src/Person/Person';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 
 class App extends Component {
   state = {
@@ -56,14 +57,16 @@ class App extends Component {
         <div>
           {this.state.persons.map((person, index) => {
             return (
-              <Person
-                name={person.name}
-                age={person.age}
-                click={this.switchNameHandler.bind(this, 'James!!!')}
-                delete={() => { this.deletePersonHandler(index) }}
-                key={person.id}
-                input={(e) => { this.inputNameHandler(e, person.id) }}
-              >My hobbies: Movie</Person>
+              // key prop must be inside of the outter element which works with map()
+              <ErrorBoundary key={person.id}>
+                <Person
+                  name={person.name}
+                  age={person.age}
+                  click={this.switchNameHandler.bind(this, 'James!!!')}
+                  delete={() => { this.deletePersonHandler(index) }}
+                  input={(e) => { this.inputNameHandler(e, person.id) }}
+                >My hobbies: Movie</Person>
+              </ErrorBoundary>
             )
           })}
         </div>

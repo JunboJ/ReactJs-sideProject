@@ -3,7 +3,10 @@ import React from 'react';
 import style from './Person.module.css';
 
 const person = props => {
-
+    const err = Math.random();
+    if (err > 0.7) {
+        throw new Error('Something went wrong');
+    }
     return (
         <div className={style.Person}>
             <div className={style.personBtnSet}>
