@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import style from './Cockpit.module.css';
 
-const cockpit = props => {
+const Cockpit = props => {
+    useEffect(() => {
+        console.log('[Cockpit.js] useEffect');
+        setTimeout(() => {
+            alert('Changes have been saved');
+        }, 1000)
+    }, [props.persons]);
+
 
     let buttonStyle = style.Green;
     if (props.showPersons) {
@@ -33,4 +40,4 @@ const cockpit = props => {
     );
 };
 
-export default cockpit;
+export default Cockpit;
