@@ -15,6 +15,16 @@ class App extends Component {
     showPersons: false
   }
 
+  // Component lifycycle - creating
+  static getDerivedStateFromProps(props, state) {
+    console.log('[App.js] getDerivedStateFromProps');
+    return state;
+  }
+
+  componentDidMount() {
+    console.log('[App.js] componentDidMount');
+  }
+
   switchNameHandler = (newName) => {
     this.setState({
       persons: [
@@ -47,7 +57,7 @@ class App extends Component {
 
   // react will excute render func when it decide to update views
   render() {
-    
+    console.log('[App.js] rendering');
     let persons = null;
     // condition check
     if (this.state.showPersons) {
@@ -64,6 +74,7 @@ class App extends Component {
       // <StyleRoot>
       <div className={`flex-container ${style.App}`}>
         <CockPit
+        title={this.props.pageTitle}
           persons={this.state.persons}
           clicked={this.togglePersonsNamesHandler}
           showPersons={this.state.showPersons}
