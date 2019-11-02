@@ -2,12 +2,19 @@ import React, { useEffect } from 'react';
 import style from './Cockpit.module.css';
 
 const Cockpit = props => {
+    let timer;
+    // useEffect(() => {
+        // console.log('[Cockpit.js] useEffect');
+        // timer = setTimeout(() => {
+        //     alert('Changes have been saved');
+        // }, 1000)
+    // }, [props.persons]);
+
     useEffect(() => {
-        console.log('[Cockpit.js] useEffect');
-        setTimeout(() => {
-            alert('Changes have been saved');
-        }, 1000)
-    }, [props.persons]);
+        return () => {
+            clearTimeout(timer);
+        }
+    }, [])
 
 
     let buttonStyle = style.Green;
@@ -16,10 +23,10 @@ const Cockpit = props => {
     }
     
     const classes = [];
-    if (props.persons.length === 2) {
+    if (props.personsLength === 2) {
       classes.push(style.bold, style.full);
     }
-    if (props.persons.length < 2) {
+    if (props.personsLength < 2) {
       classes.push(style.available);
     }
 
@@ -40,4 +47,4 @@ const Cockpit = props => {
     );
 };
 
-export default Cockpit;
+export default React.memo(Cockpit);

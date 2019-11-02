@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import style from './App.module.css';
 import Persons from '../components/Persons/Persons';
 import CockPit from '../components/Cockpit/Cockpit';
+import { tsImportEqualsDeclaration } from '@babel/types';
 // import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
 
 class App extends Component {
@@ -12,7 +13,8 @@ class App extends Component {
       { id: 'p2', name: 'Jess', age: 25 }
     ],
     otherState: 'something else',
-    showPersons: false
+    showPersons: false,
+    cockPitShow: true
   }
 
   // Component lifycycle - creating
@@ -55,6 +57,10 @@ class App extends Component {
     this.setState({ showPersons: !this.state.showPersons });
   }
 
+  toggleCockPit = () => {
+    this.setState({ cockPitShow: !this.state.cockPitShow })
+  }
+
   // react will excute render func when it decide to update views
   render() {
     console.log('[App.js] rendering');
@@ -62,24 +68,30 @@ class App extends Component {
     // condition check
     if (this.state.showPersons) {
       persons =
-          <Persons
-            persons={this.state.persons}
-            clicked={this.switchNameHandler}
-            inputing={this.inputNameHandler}
-            deleting={this.deletePersonHandler}
-          />
+        <Persons
+          persons={this.state.persons}
+          clicked={this.switchNameHandler}
+          inputing={this.inputNameHandler}
+          deleting={this.deletePersonHandler}
+        />
     }
 
     return (
       // <StyleRoot>
       <div className={`flex-container ${style.App}`}>
-        <CockPit
-        title={this.props.pageTitle}
+        <button onClick={this.toggleCockPit}>Toggle Cockpit</button>
+        {
+          this.state.cockPitShow ? 
+          <CockPit
+          personsLength={this.state.persons.length}
+          title={this.props.pageTitle}
           persons={this.state.persons}
           clicked={this.togglePersonsNamesHandler}
           showPersons={this.state.showPersons}
           switching={this.switchNameHandler}
-        />
+        /> : null
+        }
+        
         {persons}
 
       </div>
