@@ -1,18 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useContext } from 'react';
 import style from './Cockpit.module.css';
+import AuthContext from '../../context/auth-context';
 
 const Cockpit = props => {
-    let timer;
-    // useEffect(() => {
-        // console.log('[Cockpit.js] useEffect');
-        // timer = setTimeout(() => {
-        //     alert('Changes have been saved');
-        // }, 1000)
-    // }, [props.persons]);
+    const toggleBtnRef = useRef(null);
+    const authContext = useContext(AuthContext);
 
     useEffect(() => {
+        toggleBtnRef.current.click();
         return () => {
-            clearTimeout(timer);
         }
     }, [])
 
@@ -21,13 +17,13 @@ const Cockpit = props => {
     if (props.showPersons) {
         buttonStyle = style.Red;
     }
-    
+
     const classes = [];
-    if (props.personsLength === 2) {
-      classes.push(style.bold, style.full);
+    if (props.personsLength === 3) {
+        classes.push(style.bold, style.full);
     }
-    if (props.personsLength < 2) {
-      classes.push(style.available);
+    if (props.personsLength < 3) {
+        classes.push(style.available);
     }
 
     return (
@@ -42,7 +38,11 @@ const Cockpit = props => {
             <div className={style.break}></div>
             <button
                 onClick={() => { props.switching('Jimmy') }}
+                ref={toggleBtnRef}
             >Switch name</button>
+            <button
+                onClick={authContext.login}
+            >{authContext.authenticated ? 'Sign off' : 'Sign in'}</button>
         </div>
     );
 };

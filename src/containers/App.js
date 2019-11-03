@@ -5,18 +5,20 @@ import Aux from '../hoc/Auxiliary';
 import Persons from '../components/Persons/Persons';
 import CockPit from '../components/Cockpit/Cockpit';
 import withClass from '../hoc/withClass';
-import { tsImportEqualsDeclaration } from '@babel/types';
+import AuthContext from '../context/auth-context';
 // import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
 
 class App extends Component {
   state = {
     persons: [
       { id: 'p1', name: 'James', age: 25 },
-      { id: 'p2', name: 'Jess', age: 25 }
+      { id: 'p2', name: 'Jess', age: 25 },
+      { id: 'p3', name: 'London', age: 25 }
     ],
     otherState: 'something else',
     showPersons: false,
-    cockPitShow: true
+    cockPitShow: true,
+    authenticated: false
   }
 
   // Component lifycycle - creating
@@ -32,8 +34,9 @@ class App extends Component {
   switchNameHandler = (newName) => {
     this.setState({
       persons: [
-        { name: newName, age: 25 },
-        { name: 'Jess', age: 24 }
+        { id: 'p1', name: newName, age: 25 },
+        { id: 'p2', name: 'Jess', age: 24 },
+        { id: 'p3', name: 'London', age: 25 }
       ]
     })
   };
@@ -62,7 +65,11 @@ class App extends Component {
   }
 
   toggleCockPit = () => {
-    this.setState({ cockPitShow: !this.state.cockPitShow })
+    this.setState({ cockPitShow: !this.state.cockPitShow });
+  }
+
+  loginHandler = () => {
+    this.setState({ authentication: !this.state.authentication });
   }
 
   // react will excute render func when it decide to update views
@@ -84,11 +91,15 @@ class App extends Component {
       // <StyleRoot>
       <Aux>
         {/* Fragment here do the same thing as Aux */}
-        <Fragment>
+        {/* <Fragment> */}
           <button onClick={this.toggleCockPit}>Toggle Cockpit</button>
           <div className={style.App}>
-            {
-              this.state.cockPitShow ?
+            <AuthContext.Provider
+              value={{
+                authenticated: this.state.authentication,
+                login: this.loginHandler
+              }}>
+              {this.state.cockPitShow ?
                 <CockPit
                   personsLength={this.state.persons.length}
                   title={this.props.pageTitle}
@@ -96,13 +107,13 @@ class App extends Component {
                   clicked={this.togglePersonsNamesHandler}
                   showPersons={this.state.showPersons}
                   switching={this.switchNameHandler}
-                /> : null
-            }
+                /> : null}
 
-            {persons}
+              {persons}
+            </AuthContext.Provider>
 
           </div>
-        </Fragment>
+        {/* </Fragment> */}
       </Aux>
       // </StyleRoot>
     );
