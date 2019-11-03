@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 // import Radium from 'radium';
 import style from './Person.module.css';
 
@@ -16,6 +17,14 @@ class Person extends Component {
             </div>
         )
     }
+};
+
+Person.propTypes = {
+    delete: PropTypes.func,
+    click: PropTypes.func,
+    name: PropTypes.string,
+    age: PropTypes.number,
+    input: PropTypes.func
 };
 
 export default Person;

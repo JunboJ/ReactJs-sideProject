@@ -41,7 +41,9 @@ class App extends Component {
   deletePersonHandler = (pi) => {
     const persons = [...this.state.persons];
     persons.splice(pi, 1);
-    this.setState({ persons: persons });
+    this.setState((prevState, props) => {
+      return { persons: persons };
+    });
   };
 
   inputNameHandler = (event, id) => {
@@ -82,7 +84,7 @@ class App extends Component {
       // <StyleRoot>
       <Aux>
         {/* Fragment here do the same thing as Aux */}
-        <Fragment> 
+        <Fragment>
           <button onClick={this.toggleCockPit}>Toggle Cockpit</button>
           <div className={style.App}>
             {
