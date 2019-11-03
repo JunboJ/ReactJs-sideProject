@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 // import Radium, { StyleRoot } from 'radium';
 import style from './App.module.css';
+import Aux from '../hoc/Auxiliary';
 import Persons from '../components/Persons/Persons';
 import CockPit from '../components/Cockpit/Cockpit';
+import withClass from '../hoc/withClass';
 import { tsImportEqualsDeclaration } from '@babel/types';
 // import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
 
@@ -78,23 +80,28 @@ class App extends Component {
 
     return (
       // <StyleRoot>
-      <div className={`flex-container ${style.App}`}>
-        <button onClick={this.toggleCockPit}>Toggle Cockpit</button>
-        {
-          this.state.cockPitShow ? 
-          <CockPit
-          personsLength={this.state.persons.length}
-          title={this.props.pageTitle}
-          persons={this.state.persons}
-          clicked={this.togglePersonsNamesHandler}
-          showPersons={this.state.showPersons}
-          switching={this.switchNameHandler}
-        /> : null
-        }
-        
-        {persons}
+      <Aux>
+        {/* Fragment here do the same thing as Aux */}
+        <Fragment> 
+          <button onClick={this.toggleCockPit}>Toggle Cockpit</button>
+          <div className={style.App}>
+            {
+              this.state.cockPitShow ?
+                <CockPit
+                  personsLength={this.state.persons.length}
+                  title={this.props.pageTitle}
+                  persons={this.state.persons}
+                  clicked={this.togglePersonsNamesHandler}
+                  showPersons={this.state.showPersons}
+                  switching={this.switchNameHandler}
+                /> : null
+            }
 
-      </div>
+            {persons}
+
+          </div>
+        </Fragment>
+      </Aux>
       // </StyleRoot>
     );
     // the code above will be converted to the code below
@@ -102,7 +109,7 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withClass(App, style.App);
 
 
 
